@@ -1,4 +1,4 @@
-# Circuit
+# Circuit Diagram and Schematics
 
 ## Version 3.0
 
