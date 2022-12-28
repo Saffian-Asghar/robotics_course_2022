@@ -1,5 +1,21 @@
 # Circuit
 
+## Version 3.0
+
+### Schematics
+
+![alt_text](lib\images\CircuitDiagramVersionTrois.jpg "Circuit Diagram V3.0")
+
+### Parts
+
+```
+- Arduino Mega 2560.
+- Zumo Robot v1.3.
+- 1 Ultrasonic sensor US- 015.
+- 4 jumping wires.
+- 2 4x 1 male pins.
+```
+
 ## Version 2.0
 
 ### Schematics
