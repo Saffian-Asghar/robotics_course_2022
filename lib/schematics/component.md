@@ -4,7 +4,7 @@
 
 ### Schematics
 
-![alt_text](lib\images\CircuitDiagramVersionTrois.jpg "Circuit Diagram V3.0")
+![Alt text](../images/CircuitDiagramVersionTrois.jpg)
 
 ### Parts
 
@@ -20,9 +20,10 @@
 
 ### Schematics
 
-![alt_text](lib\images\CircuitDiagramV2.png "Circuit Diagram V2.0")
-![alt_text](lib\images\zumoRobot.jpg "Zumo Robot V2.0")
-
+![Alt text](../images/CircuitDiagramV2.png)
+<p align="center">
+<img src="../images/zumoRobot.jpg"/>
+</p>
 ### Parts
 
 ```
@@ -37,7 +38,7 @@
 
 ### Schematics
 
-![alt_text](lib\images\CircuitDiagram.png "Circuit Diagram V1.0")
+![Alt text](../images/CircuitDiagram.png)
 
 ### Parts
 
@@ -57,7 +58,7 @@ Let's take a brief overview of how everything works:
 
 ### Pulse Width Modulation
 
-![alt_text](lib\images\pmw.jpg "PMW")
+![Alt text](../images/pmw.jpg)
 
 ```
 A pulse width modulated output signal is one that has a period and an output “on time”, or
@@ -76,7 +77,7 @@ Duty Cycle it would be analogWrite(PIN, 51).
 
 ### L298N H Bridge
 
-![alt_text](lib\images\H-BridgeL298N.jpg "H-Bridge L298N")
+![Alt text](../images/H-BridgeL298N.jpg)
 
 ```
 Any Arduino you will have, will not be able to provide that much voltage and current for DC
