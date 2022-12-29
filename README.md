@@ -2,33 +2,9 @@
 
 Authors: Kevin Lhoste & Rajeev Mylapalli
 
-This is the repository of the [LPI](https://www.learningplanetinstitute.org/en), [Dgital Master](https://master.learningplanetinstitute.org/en/digital) "Robotics" course 2022-2023 final projects.
+Team members: Saffian Asghar, Alexis Culpin and Emilio Espinosa
 
-# Course description
-1. Bootcamp: Arduino and Electronics
-* Shitty robots - no expereince with coding or electronics required (building remote control robots using servos, RC receover, battery and some trash like cardboard, plastic bottels, cans, wood etc)
-* Introduction to Arduino
-* Environment setup (installing ide and trouble shooting issue with serial port)
-* Basic electronics (open & close circuits, analog vs digital signals, building basic circuits on bread board)
-* Using code to play with components (led, buzzer, ldr etc)
-2. Robotics 101 - Introduction
-* Lecture + discussion (Introduction to robotics, applications, examples and some of the main problem statements of robotics).
-* Schematics of Robots used/built during the course
-* Intro to sensors and actuators - DIY version
-* Intro to existing platforms - existing kits
-3. Robotics 101 - DIY version
-* Bulding a basic robot from scrach using DC motors and H-bridge
-* Square challenge
-* Speed control using PWM
-4. Robotics 101 - Feedback loops
-* IR/Line sensors to make Line follower
-* Polling vs Interrupts
-* Implementatio of encoders
-* Introdcution to PID (optional for beginners)
-* Using IMU
-5. Mini Project
-* Team formation + Ideation report
-* Project week - Project mainly focusing on solving the challenge while addressing odometry or kinematics problems. Implementation of your own algorithm to optimise the results.
+This is the repository of the [LPI](https://www.learningplanetinstitute.org/en), [Dgital Master](https://master.learningplanetinstitute.org/en/digital) "Robotics" course 2022-2023 final projects.
 
 # Mini project guide
 Fork this repository and add your team members as collaborators to your fork. Make sure it is a public repository.
