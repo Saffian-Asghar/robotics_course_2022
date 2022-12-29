@@ -10,17 +10,27 @@
 #define TURN_RIGHT_DURATION     246 
 
 
+// pin for the sensor
+int trigPin = 10;    // Trigger
+int echoPin = 11;    // Echo
+
 // We need to keep track of where our bot is facing
 char orientation;
+// Obstacle detection variables
+long duration, cm; 
 
 ZumoMotors motors;
+// Pushbutton button(ZUMO_BUTTON); // pushbutton on pin 12
 
 
 /**
   Arduino default setup function
 */
 void setup(){  
-
+    orientation = 'n';
+    //Define inputs and outputs for the ultrasonic sensor
+    pinMode(trigPin, OUTPUT);
+    pinMode(echoPin, INPUT);
 }
 
 // Arduino default loop function.
@@ -28,7 +38,6 @@ void loop()
 {
 
 }
-
 
 
 // Functions move the bot
@@ -90,6 +99,36 @@ void turnRight(){
 }
 
 /*
+detectObstacle,
+This function uses the ultrasonic sensor to detect if there is an obstacle on the path.
+* @return : bool, return a bollean indicating if an obstacle is found in the comming 50 cm 
+*/
+bool detectObstacle(){
+    // The sensor is triggered by a HIGH pulse of 10 or more microseconds.
+    // Give a short LOW pulse beforehand to ensure a clean HIGH pulse:
+    digitalWrite(trigPin, LOW);
+    delayMicroseconds(5);
+    digitalWrite(trigPin, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(trigPin, LOW);
+    
+    // Read the signal from the sensor: a HIGH pulse whose
+    // duration is the time (in microseconds) from the sending
+    // of the ping to the reception of its echo off of an object.
+    pinMode(echoPin, INPUT);
+    duration = pulseIn(echoPin, HIGH);
+    
+    // Convert the time into a distance
+    cm = (duration/2) / 29.1;     // Divide by 29.1 or multiply by 0.0343
+    Serial.print("US Dist: ");
+    Serial.println(cm);
+    delay(100);
+    if (cm > 50){return false; }
+    else{return true;}
+    // return false;
+}
+
+/*
 goNext,
 This function makes the robot go from one square to the other.
 @param x: x current position.
@@ -134,4 +173,3 @@ char goNext(int x,int y,int w,int z){
     }
 
 }
-
