@@ -1,4 +1,14 @@
 
+/**
+  Robotics Digital Sciences M1 2022
+  Name: Path Finding Robot
+  Purpose: To find shortest path in a grid of 8x8 with pre defined obstacles and dynamic obstacles
+
+  @author Saffian Asghar, Emilio Espinosa Sanchez, Alexis Culpin
+
+*/
+
+
 #include <ZumoShield.h>
 
 
@@ -91,14 +101,10 @@ int success;
   Arduino default setup function
 */
 void setup(){  
-    // uncomment if necessary to correct motor directions
-    //motors.flipLeftMotor(true);
-    //motors.flipRightMotor(true);
     orientation = 'n';
     Serial.begin(2000000);
-    delay(5000);
+    delay(2000);
     Serial.println("Building the grid...");
-    //pinMode(LED, HIGH);
     //Define inputs and outputs for the ultrasonic sensor
     pinMode(trigPin, OUTPUT);
     pinMode(echoPin, INPUT);
@@ -110,16 +116,11 @@ void setup(){
     s =0;
     /* index of finish spot */
     e = sLen - 1;
-    //Serial.println("Finding shortest Path...");
-
-    //getShortestPath();
-    //Serial.println("Shortest Path FOUND!");
 
     count = 0;
     success =0;
 }
 
-    // int count = 0;
 // Arduino default loop function.
 void loop()
 {
@@ -131,7 +132,6 @@ void loop()
     
     }
 
-    // Serial.println("In loop");
     if(!found || success == 1){
         // stop the bot
         stop();
