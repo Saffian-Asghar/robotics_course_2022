@@ -2,6 +2,8 @@
 
 Authors: Kevin Lhoste & Rajeev Mylapalli
 
+Team members: Saffian Asghar, Alexis Culpin and Emilio Espinosa
+
 This is the repository of the [LPI](https://www.learningplanetinstitute.org/en), [Dgital Master](https://master.learningplanetinstitute.org/en/digital) "Robotics" course 2022-2023 final projects.
 
 # Mini project guide
