@@ -91,10 +91,14 @@ int success;
   Arduino default setup function
 */
 void setup(){  
+    // uncomment if necessary to correct motor directions
+    //motors.flipLeftMotor(true);
+    //motors.flipRightMotor(true);
     orientation = 'n';
     Serial.begin(2000000);
     delay(5000);
     Serial.println("Building the grid...");
+    //pinMode(LED, HIGH);
     //Define inputs and outputs for the ultrasonic sensor
     pinMode(trigPin, OUTPUT);
     pinMode(echoPin, INPUT);
@@ -110,13 +114,45 @@ void setup(){
 
     //getShortestPath();
     //Serial.println("Shortest Path FOUND!");
-    
-    getShortestPath();
+
+    count = 0;
+    success =0;
 }
 
+    // int count = 0;
 // Arduino default loop function.
 void loop()
 {
+    if(count < 1){
+      Serial.println("finding path");
+      getShortestPath();
+      Serial.println("found path");
+      count++;
+    
+    }
+
+    // Serial.println("In loop");
+    if(!found || success == 1){
+        // stop the bot
+        stop();
+    }
+    else{
+      Serial.print("path cost is :");
+    Serial.print(pLen); 
+        for (int i = pLen - 1; i >= 0; i--) {
+          Serial.print("(");
+          Serial.print(spots[path[i]].row);
+          Serial.print(",");
+          Serial.print(spots[path[i]].col);
+          Serial.print(")");
+          Serial.println("");
+        }
+        success = driveBot();
+    }
+    Serial.print("success: ");
+    Serial.println(success);
+    Serial.print("found: ");
+    Serial.println(found);
 
 }
 
@@ -149,6 +185,41 @@ void buildGrid(){
             }
         }
     }
+}
+
+/**
+  Resets all variables 
+*/
+void resetPaths(){
+    for (int i = 0; i < sLen; ++i) {
+      free(spots[i].n);
+    }
+    free(spots);
+    free(routes);
+    free(path);
+    free(open);
+    free(closed);
+
+    for (int i = 0; i < MAP_ROWS ; i++) {
+        for (int j = 0; j < MAP_COLS ; j++) {
+          ind[i][j] = -1;
+        }
+    }
+    found = 0;
+    pLen = 0;
+    * path = NULL;
+    cLen = 0;
+    * closed = NULL;
+    oLen = 1;
+    * open = NULL;
+    min = 0.0, tempg = 0.0;
+    sLen = 0;
+    spots = NULL;
+    r_len = 0;
+    routes = NULL;
+    Serial.println("Done with the reset!");
+
+
 }
 
 /**
@@ -427,3 +498,113 @@ char goNext(int x,int y,int w,int z){
     }
 
 }
+
+/*
+driveBot,
+Drives the bot on the path calculated
+* @return int : status of our followed path 
+*/
+int driveBot(){
+    for(int i =  pLen -1 ; i >= 0 ; i--){
+        int curX =spots[path[i]].col; 
+        int curY= spots[path[i]].row;
+        int nextX;
+        int nextY;
+        if(i == 0){
+            nextX =curX; 
+            nextY= curY;  
+        }
+        else{
+            nextX =spots[path[i-1]].col; 
+            nextY= spots[path[i-1]].row;  
+        }
+
+        success = runPath(curX,curY,nextX,nextY);
+        if(success == 3){
+            return 1;
+            // reached goal
+        }
+        else if(success == 2){
+            return 2;
+        }
+            
+    }
+    return 1;
+}
+/*
+runPath,
+This function makes the robot go to the next desired spot/tile.
+@param curX: x current position.
+@param curY: y current position.
+@param nextX: x next square position.
+@param nextY: y next square position.
+
+@return int : status of our followed path (3 for goal reached, 2 if obstacle detected, 1 for no direction )
+
+*/
+int runPath(int curX,int curY,int nextX,int nextY ){
+    
+    int returnValue = 1;
+ 
+    Serial.print("Current (");
+    Serial.print(curY);
+    Serial.print(" , ");
+    Serial.print(curX);
+    Serial.print(" ) ");
+    Serial.print("Next (");
+    Serial.print(nextY);
+    Serial.print(" , ");
+    Serial.print(nextX);
+    Serial.println(" )");
+    Serial.print("Current Orientation: ");
+    Serial.println(orientation);
+
+    char direction = goNext(curX, curY, nextX, nextY);
+    if(direction == 'e'){
+        return 3;
+    }
+        Serial.print("Next Direction: ");
+
+    if (direction == 'r'){
+        Serial.println("Right");
+        turnRight();
+    }
+    else if (direction == 'l'){
+        Serial.println("Left");
+        turnLeft();
+    }
+    if (! detectObstacle()){
+        if (direction != 'b'){
+        Serial.println("Forward");
+            goForward();
+        }
+        else{
+        Serial.println("Backward");
+            goBackward();
+        }
+    }
+    else{
+        Serial.println("Obstacle detected");
+        Serial.print("Obstacle placed at ( ");
+        Serial.print(nextY);
+        Serial.print(" , ");
+        Serial.print(nextX);
+        Serial.println(" ) ");
+        resetPaths();
+        open = (int*)calloc(oLen, sizeof(int));
+        gridMap[nextY][nextX] = 1;
+        buildGrid();
+        s = ind[curY][curX];
+        
+        e = sLen - 1;
+
+
+        getShortestPath();
+        returnValue = 2;
+    }
+
+return returnValue;
+
+}
+
+
