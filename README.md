@@ -54,6 +54,10 @@ The algorithm utilizes A star algorithm to find the best optimal path from point
 
 This finds the shortest path using heuristics on the given grid.
 
+### Path Finding Robot
+
+![Alt text](lib/videos/gifs/FinalPathGif.gif)
+
 # Resources
 
 The overall course [content](https://docs.google.com/presentation/d/1irOeB_RKd-NETgOlSd2deLiXENa9ExU59z8WiRyq_DI/edit#slide=id.gb895fb238d_0_475)
